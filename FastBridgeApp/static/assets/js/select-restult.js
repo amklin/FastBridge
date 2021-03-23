@@ -204,6 +204,7 @@ function toggle_all_filters(id) {
 }
 function global_filter(filter_id) {
   var to_toggle = document.getElementsByClassName(filter_id)
+  console.log(filter_id)
   for (var i = 0; i < to_toggle.length; i++) {
     to_toggle[i].value = document.getElementById(filter_id).value
     to_toggle[i].checked= document.getElementById(filter_id).checked
@@ -220,6 +221,7 @@ function global_filter(filter_id) {
 
 function hide_show_column(col_name)
 {
+ console.log(col_name)
  var stylesheet = document.styleSheets[8]
  var end = stylesheet.cssRules.length
  var checkbox_val=document.getElementById(col_name).value;
