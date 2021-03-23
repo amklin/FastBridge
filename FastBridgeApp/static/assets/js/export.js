@@ -41,7 +41,9 @@ function current_selections() {
     for (i = 0; i < filters.length -1; i++) {
         
         let filter = "#" + filters[i] 
+        console.log(filter)
         let value = $(filter).val();
+        console.log(value)
         result +=  '"'+filters[i] + '":"' + value + '",'
     }
     let filter = "#" + filters[filters.length-1] 

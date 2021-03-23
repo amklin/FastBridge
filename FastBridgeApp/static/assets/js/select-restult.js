@@ -224,23 +224,27 @@ function hide_show_column(col_name)
  console.log(col_name)
  var stylesheet = document.styleSheets[8]
  var end = stylesheet.cssRules.length
+ console.log(stylesheet)
+ console.log(end)
  var checkbox_val=document.getElementById(col_name).value;
- if(checkbox_val=="hide")
+ console.log(checkbox_val) //correct value here 
+ if(checkbox_val=="hide") //changed the hide with show
  {
    var rule =  `.${col_name} { display : none !important} `
    stylesheet.insertRule(rule, end)
    columns[col_name][0] = end;
-  document.getElementById(col_name+"_head").style.display="none";
-  document.getElementById(col_name).value="show";
+   document.getElementById(col_name+"_head").style.display="none";
+   document.getElementById(col_name).value="show";
 
  }
  else{
+   console.log(columns)
    console.log(columns[col_name][0])
    console.log(end-1)
-   if (columns[col_name][0] != end -1){
+   if (columns[col_name][0] != end - 1){
      //console.log("about to for")
      for (const [key, value] of Object.entries(columns)){
-       //console.log(value[0])
+       console.log(value[0])
        //console.log(columns[col_name][0])
        if(value[0] > columns[col_name][0]){
          console.log(key)
@@ -254,7 +258,7 @@ function hide_show_column(col_name)
 
    columns[col_name] = [0, true];
    document.getElementById(col_name+"_head").style.display="table-cell";
-   document.getElementById(col_name).value="hide";
+   document.getElementById(col_name).value="show"; //changed hide to show and we are getting the selcted columns
  }
  setTimeout(line_up_header_columns,0);
 }
