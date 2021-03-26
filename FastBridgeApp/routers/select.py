@@ -242,9 +242,13 @@ def build_html_for_clusterize(words, POS_list, columnheaders, row_filters, style
                 style+= f'.{columnheaders[i]} {{display : none !important}}'
                 header_js_obj[columnheaders[i]][0] =rules_added
                 rules_added +=1
+                print("inside select.py if clause at line 245")
                 headers+= f'<input type="checkbox" class="custom-control-input" value="show" id="{columnheaders[i]}" onchange="hide_show_column(\'{columnheaders[i]}\');">'
+                print(headers)
             else:
+                print("inside select.py else clause at line 249")
                 headers+= f'<input type="checkbox" class="custom-control-input" value="hide" id="{columnheaders[i]}" onchange="hide_show_column(\'{columnheaders[i]}\');" checked>'
+                print(headers)
 
 
         else:

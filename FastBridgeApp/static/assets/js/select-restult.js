@@ -228,7 +228,7 @@ function hide_show_column(col_name)
  console.log(end)
  var checkbox_val=document.getElementById(col_name).value;
  console.log(checkbox_val) //correct value here 
- if(checkbox_val=="hide") //changed the hide with show
+ if(checkbox_val=="hide") 
  {
    var rule =  `.${col_name} { display : none !important} `
    stylesheet.insertRule(rule, end)
@@ -258,6 +258,7 @@ function hide_show_column(col_name)
 
    columns[col_name] = [0, true];
    document.getElementById(col_name+"_head").style.display="table-cell";
+   console.log(document.getElementById(col_name)) //added new console.log
    document.getElementById(col_name).value="show"; //changed hide to show and we are getting the selcted columns
  }
  setTimeout(line_up_header_columns,0);
