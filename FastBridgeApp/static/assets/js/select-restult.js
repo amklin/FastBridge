@@ -254,11 +254,12 @@ function hide_show_column(col_name)
      }
 
    }
+   console.log(stylesheet.deleteRule(columns[col_name][0]))
    stylesheet.deleteRule(columns[col_name][0])
-
+  
    columns[col_name] = [0, true];
    document.getElementById(col_name+"_head").style.display="table-cell";
-   console.log(document.getElementById(col_name)) //added new console.log
+   console.log(document.getElementById(col_name+"_head")) //added new console.log
    document.getElementById(col_name).value="show"; //changed hide to show and we are getting the selcted columns
  }
  setTimeout(line_up_header_columns,0);
