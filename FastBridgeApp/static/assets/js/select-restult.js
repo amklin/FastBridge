@@ -173,7 +173,7 @@ function sortTable(col, n) {
 
     }
   }
- //console.log(rows)
+ console.log(rows)
  columns[col][1] = !asc
  clusterize.update(filterRows(rows));
   setTimeout(line_up_header_columns,0);
@@ -218,49 +218,41 @@ function global_filter(filter_id) {
   }
 }
 
-
+//try using the element
 function hide_show_column(col_name)
 {
  console.log(col_name)
  var stylesheet = document.styleSheets[8]
  var end = stylesheet.cssRules.length
- console.log(stylesheet)
- console.log(end)
  var checkbox_val=document.getElementById(col_name).value;
- console.log(checkbox_val) //correct value here 
+ console.log(checkbox_val) //if the value is hide means the column is showing.
  if(checkbox_val=="hide") 
  {
    var rule =  `.${col_name} { display : none !important} `
    stylesheet.insertRule(rule, end)
    columns[col_name][0] = end;
+   console.log("indise if hide")
    document.getElementById(col_name+"_head").style.display="none";
-   document.getElementById(col_name).value="show";
+   document.getElementById(col_name).value="show"; 
+   console.log(document.getElementById(col_name).value) //correct value here 
 
  }
  else{
-   console.log(columns)
-   console.log(columns[col_name][0])
-   console.log(end-1)
+   console.log(columns[col_name])
    if (columns[col_name][0] != end - 1){
-     //console.log("about to for")
      for (const [key, value] of Object.entries(columns)){
        console.log(value[0])
-       //console.log(columns[col_name][0])
        if(value[0] > columns[col_name][0]){
-         console.log(key)
-         console.log(columns[key])
          columns[key] =  [columns[key][0] - 1, true] //bool is for sorting, this makes is smallest to largest
        }
      }
-
    }
-   console.log(stylesheet.deleteRule(columns[col_name][0]))
    stylesheet.deleteRule(columns[col_name][0])
-  
-   columns[col_name] = [0, true];
+   console.log(document.getElementById(col_name+"_head"))
    document.getElementById(col_name+"_head").style.display="table-cell";
-   console.log(document.getElementById(col_name+"_head")) //added new console.log
-   document.getElementById(col_name).value="show"; //changed hide to show and we are getting the selcted columns
+   document.getElementById(col_name).value="hide";
+   console.log(col_name)
+   console.log(document.getElementById(col_name).value)
  }
  setTimeout(line_up_header_columns,0);
 }

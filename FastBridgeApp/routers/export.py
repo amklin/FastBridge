@@ -42,8 +42,11 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     data = await request.json()
     data = data['data']
 
+    print("at line 45")
     # Get columns to show, remove those marked 'hide'
-    display =[key for key in data.keys() if data[key] == 'show']  
+    display =[key for key in data.keys() if data[key] == 'hide'] 
+    print("at line 46")
+    print(display)
         
     triple = DefinitionTools.make_quads_or_trips(sourcetexts, starts, ends)
     if running_list == "running":
@@ -103,14 +106,17 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     section =", ".join(["{text}: {start} - {end}".format(text = text, start = start, end = end) for text, start, end in display_triple])
     #this insane oneliner goes through the triples, and converts it to a nice, human readable, format that we render on the page.
     #context["basic_defs"] = [word[3] for word in words]
+    print("at line 106 in export.py")
+    print(columnheaders)
     columnheaders.append("Count_in_Selection")
     columnheaders.append("Order_of_Appearance")
     columnheaders.append("Source_Text")
 
     #TODO AJ revisit this, these values can be found in the frequency_dict, to add back later
     #now removing to get to working exporter
-    display.remove('Count_in_Selection')
-    display.remove('Order_of_Appearance')
+    # display.remove('Count_in_Selection')
+    # display.remove('Order_of_Appearance')
+    # display.remove('Source_Text')
 
     # create a list of dictionaries 
     # each dict is a word appearance and its attributes
@@ -131,8 +137,17 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
             data.append(row)
                     
     df = pd.DataFrame(data)
+    display_column_list = []
     # include only columns that were selected by the user
-    df = df[display] 
+    #final deplay list that will help render the correct csv
+    lenDisplay = len(display)
+    for i in range(len(display)):
+        if (display[i] in columnheaders):
+            display_column_list.append(display[i])
+    print("at line 146 in export.py")
+    print(display_column_list)
+
+    df = df[display_column_list] 
 
     # in memory variation, not sure how to set filename
     #csv= df.to_csv()
@@ -215,6 +230,8 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
 
     words_no_dups = DefinitionTools.get_lang_data(titles_no_dups, language, local_def, local_lem)[0] #these maybe should be split up again into something like: get words from titles, get POS list for selection, get columnheaders...
 
+    print("at line 218 in export.py")
+    print(columnheaders)
     columnheaders.append("Count_in_Selection")
     columnheaders.append("Order_of_Appearance")
     columnheaders.append("Source_Text")

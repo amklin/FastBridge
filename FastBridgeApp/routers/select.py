@@ -243,11 +243,13 @@ def build_html_for_clusterize(words, POS_list, columnheaders, row_filters, style
                 header_js_obj[columnheaders[i]][0] =rules_added
                 rules_added +=1
                 print("inside select.py if clause at line 245")
-                headers+= f'<input type="checkbox" class="custom-control-input" value="show" id="{columnheaders[i]}" onchange="hide_show_column(\'{columnheaders[i]}\');">'
+                #i can use this in the argument for the function which will pass the object (this) instead of (\'{columnheaders[i]}\')
+                headers+= f'<input type="checkbox" class="custom-control-input" value="show" id="{columnheaders[i]}" onclick="hide_show_column(\'{columnheaders[i]}\');">'
                 print(headers)
             else:
                 print("inside select.py else clause at line 249")
-                headers+= f'<input type="checkbox" class="custom-control-input" value="hide" id="{columnheaders[i]}" onchange="hide_show_column(\'{columnheaders[i]}\');" checked>'
+                headers+= f'<input type="checkbox" class="custom-control-input" value="hide" id="{columnheaders[i]}" onclick="hide_show_column(\'{columnheaders[i]}\');" checked>'
+                #changed value to show
                 print(headers)
 
 
@@ -255,7 +257,7 @@ def build_html_for_clusterize(words, POS_list, columnheaders, row_filters, style
             style+= f'.{columnheaders[i]} {{display : none !important}}'
             header_js_obj[columnheaders[i]][0] =rules_added
             rules_added +=1
-            headers+= f'<input type="checkbox" class="custom-control-input" value="show" id="{columnheaders[i]}" onchange="hide_show_column(\'{columnheaders[i]}\');">'
+            headers+= f'<input type="checkbox" class="custom-control-input" value="show" id="{columnheaders[i]}" onclick="hide_show_column(\'{columnheaders[i]}\');">'
 
         other_headers+=f'<th id="{columnheaders[i]}_head" class="{columnheaders[i]}" onclick="sortTable(\'{columnheaders[i]}\',{i})" >{columnheaders[i].replace("_", " ").title()}</th>'
         headers+=f'<label class="custom-control-label" for="{columnheaders[i]}">{columnheaders[i].replace("_", " ").title()}</label></div></div>'
