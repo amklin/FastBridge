@@ -106,7 +106,7 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     section =", ".join(["{text}: {start} - {end}".format(text = text, start = start, end = end) for text, start, end in display_triple])
     #this insane oneliner goes through the triples, and converts it to a nice, human readable, format that we render on the page.
     #context["basic_defs"] = [word[3] for word in words]
-    print("at line 106 in export.py")
+    print("at line 109 in export.py")
     print(columnheaders)
     columnheaders.append("Count_in_Selection")
     columnheaders.append("Order_of_Appearance")
@@ -144,7 +144,7 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     for i in range(len(display)):
         if (display[i] in columnheaders):
             display_column_list.append(display[i])
-    print("at line 146 in export.py")
+    print("at line 147 in export.py")
     print(display_column_list)
 
     df = df[display_column_list] 
@@ -164,7 +164,7 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
     context = {"request": request}
     data = await request.json()
     data = data['data']
-    display =[key for key in data.keys() if data[key] == 'show']  
+    display =[key for key in data.keys() if data[key] == 'hide']  
     if running_list == "running":
         running_list = True
     else:
@@ -222,22 +222,24 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
     titles =  [title for title in titles if (title[0]) in to_operate]
 
 
-
-
     titles_no_dups = sorted(titles_no_dups, key=lambda x: x[1])
     titles = sorted(titles, key=lambda x: x[1])
     words, POS_list, columnheaders, row_filters, global_filters = (DefinitionTools.get_lang_data(titles, language, local_def, local_lem))
 
     words_no_dups = DefinitionTools.get_lang_data(titles_no_dups, language, local_def, local_lem)[0] #these maybe should be split up again into something like: get words from titles, get POS list for selection, get columnheaders...
 
-    print("at line 218 in export.py")
+    print("at line 231 in export.py")
     print(columnheaders)
     columnheaders.append("Count_in_Selection")
     columnheaders.append("Order_of_Appearance")
     columnheaders.append("Source_Text")
+    print("at line 236 in export.py")
+    print(columnheaders)
     
-    display.remove('Count_in_Selection')
-    display.remove('Order_of_Appearance')
+    #now removing to get to working exporter
+    # display.remove('Count_in_Selection')
+    # display.remove('Order_of_Appearance')
+    # display.remove('Source_Text')
 
     # create a list of dictionaries 
     # each dict is a word appearance and its attributes
@@ -258,8 +260,18 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
             data.append(row)
                     
     df = pd.DataFrame(data)
+    display_column_list = []
     # include only columns that were selected by the user
-    df = df[display] 
+    #final deplay list that will help render the correct csv
+    lenDisplay = len(display)
+    for i in range(len(display)):
+        if (display[i] in columnheaders):
+            display_column_list.append(display[i])
+    print("at line 268 in export.py")
+    print(display_column_list)
+
+    # include only columns that were selected by the user
+    df = df[display_column_list] 
     csv_file_path = f'{sourcetexts}_{in_exclude}_{othertexts}.csv'
     df.to_csv(csv_file_path, index=False)
     return FileResponse(csv_file_path, media_type="text/csv",filename=csv_file_path)
