@@ -5,7 +5,6 @@ var display_len = document.getElementById('len')
 /*
 * Fetch suitable rows
 */
-
 var filterRows = function(rows) {
   var results = [];
   for(var i = 0, ii = rows.length; i < ii; i++) {
@@ -16,6 +15,7 @@ var filterRows = function(rows) {
   }
   return results;
 }
+
 /*
 * Init clusterize.js
 */
@@ -25,6 +25,7 @@ var clusterize = new Clusterize({
   contentId: 'contentArea'//,
   //blocks_in_cluster: blocks_in_cluster
 });
+
 /*
 * Attach listener to search input tag and filter list on change
 */
@@ -47,6 +48,8 @@ tab = document.getElementById('slideOutTab')
 if(tab){
   tab.onclick = (function() {slideOut.classList.toggle('showSlideOut'); });
 }
+
+
 function show_full_list(id) {
   var ths = document.getElementById(id);
   var value = ths.value;
@@ -70,6 +73,8 @@ function printData()
    newWin.print();
    newWin.close();
 }
+
+
 // Quick and simple export target #table_id into a csv
 function download_table_as_csv() {
     // Select rows from table_id
@@ -100,10 +105,13 @@ function download_table_as_csv() {
     link.click();
     document.body.removeChild(link);
 }
+
+
 function isHidden(el) {
     return (el.offsetParent === null)
 }
 var first_visible_row = document.getElementById('main_table').rows[0]
+
 function get_first_visible_row() {
   var rows = document.getElementById('main_table').rows;
   var j = 0;
@@ -123,12 +131,16 @@ function line_up_header_columns()
     headers[i].style.width = width
   }
 }
-//sorting – not sure how compatible this is with clusterize
+
+
+//sorting â€“ not sure how compatible this is with clusterize
+
 function sortTable(col, n) {
   //console.log(col)
   asc = columns[col][1]
   //checks if this is an int or a string. Thank you implicit typing
   if(typeof rows[0].values[n] == "number"){
+
     if (asc){
     rows.sort(function(a, b){
         {
@@ -158,6 +170,7 @@ function sortTable(col, n) {
           return (a.values[n].toLowerCase() < b.values[n].toLowerCase()) ? 1 : -1
         }
       )
+
     }
   }
  console.log(rows)
@@ -165,6 +178,9 @@ function sortTable(col, n) {
  clusterize.update(filterRows(rows));
   setTimeout(line_up_header_columns,0);
 }
+
+
+
 //row and column filter functions
 function toggle_all_filters(id) {
   var ths = document.getElementById(id);
@@ -180,9 +196,10 @@ function toggle_all_filters(id) {
   var checkBoxes = document.querySelectorAll('input[name=filterChecks]')
   for (var i = 0; i < checkBoxes.length; i++) {
     checkBoxes[i].value = ths.value;
-    console.log(checkBoxes[i].value);
     checkBoxes[i].checked = ths.checked;
     }
+
+
   clusterize.update(filterRows(rows));
 }
 function global_filter(filter_id) {
@@ -200,11 +217,8 @@ function global_filter(filter_id) {
     document.getElementById(filter_id).value = 'hide';
   }
 }
-<<<<<<< HEAD
 
 //try using the element
-=======
->>>>>>> dev
 function hide_show_column(col_name)
 {
  console.log(col_name)
@@ -217,7 +231,6 @@ function hide_show_column(col_name)
    var rule =  `.${col_name} { display : none !important} `
    stylesheet.insertRule(rule, end)
    columns[col_name][0] = end;
-<<<<<<< HEAD
    console.log("indise if hide")
    document.getElementById(col_name+"_head").style.display="none";
    document.getElementById(col_name).value="show"; 
@@ -227,43 +240,23 @@ function hide_show_column(col_name)
  else{
    console.log(columns[col_name])
    if (columns[col_name][0] != end - 1){
-=======
-   document.getElementById(col_name+"_head").style.display="none";
-   console.log(document.getElementById(col_name+"_head").style.display="none");
-   document.getElementById(col_name).value="show";
-  }
- else{
-  /*
-   console.log(columns[col_name][0])
-   console.log(end-1)
-   if (columns[col_name][0] != end -1){
-     //console.log("about to for")
->>>>>>> dev
      for (const [key, value] of Object.entries(columns)){
        console.log(value[0])
        if(value[0] > columns[col_name][0]){
          columns[key] =  [columns[key][0] - 1, true] //bool is for sorting, this makes is smallest to largest
        }
      }
-<<<<<<< HEAD
    }
    stylesheet.deleteRule(columns[col_name][0])
    console.log(document.getElementById(col_name+"_head"))
-=======
-​
-   }
-   stylesheet.deleteRule(columns[col_name][0])
-​
-   columns[col_name] = [0, true];
->>>>>>> dev
    document.getElementById(col_name+"_head").style.display="table-cell";
    document.getElementById(col_name).value="hide";
    console.log(col_name)
    console.log(document.getElementById(col_name).value)
  }
- */
  setTimeout(line_up_header_columns,0);
 }
+
 function hide_show_row(row_value){
   var checkbox_val=document.getElementById(row_value).value;
   var children = false;
@@ -273,11 +266,14 @@ function hide_show_row(row_value){
     children = document.getElementById(row_value+"extra").childNodes
     ////console.log(children)
   }
+
+
   if(checkbox_val=="hide"){
     rows = rows.filter(element => !element.values.includes(row_value))
     if (children){
       for (var i = 0; i < children.length; i++) {
       children[i].childNodes[1].childNodes[1].checked=""
+
       children[i].childNodes[1].childNodes[1].value="show"
       children[i].childNodes[1].childNodes[1].disabled="true"
       }
@@ -292,6 +288,7 @@ function hide_show_row(row_value){
         children[i].childNodes[1].childNodes[1].value="hide"
         children[i].childNodes[1].childNodes[1].disabled=""
       }
+
     }
     var checkBoxes = document.querySelectorAll('input[name=filterChecks]:not(:checked)');
     //console.log(checkBoxes)
@@ -299,19 +296,11 @@ function hide_show_row(row_value){
       checkBoxes[i].value = "hide";
       hide_show_row(checkBoxes[i].id);
     }
-  
+
+
   document.getElementById(row_value).value="hide";
   }
   clusterize.update(filterRows(rows));
   setTimeout(line_up_header_columns,0);
 }
 setTimeout(line_up_header_columns,0);
-};
-
-console.log('this is Andy saying hello!')
-
-
-
-
-
-
