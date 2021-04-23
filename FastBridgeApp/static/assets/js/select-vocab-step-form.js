@@ -254,11 +254,11 @@ $('#bridge-modal-form1-save').click(function(){
     var sectionTo =$('#bridge-select-text #bridge-modal-form1-select2-hidden-field2').val();
     if (sectionFrom &&sectionTo){ // if user specifies a section
         var sections = `${sectionFrom}-${sectionTo}`;
-    }else if (!sectionFrom &&sectionTo) {
+    }else if (!sectionFrom && sectionTo) {
       var sections = `start-${sectionTo}`;
       sectionFrom = 'start'
     }
-    else if (!sectionTo &&sectionFrom) {
+    else if (!sectionTo && sectionFrom) {
       var sections = `${sectionFrom}-end`;
       sectionTo = 'end'
     }
@@ -267,6 +267,9 @@ $('#bridge-modal-form1-save').click(function(){
         sectionTo = 'end'
         var sections = 'start-end';
     }
+
+    console.log(sectionFrom)
+    console.log(sectionTo)
     // show the selection in a table
     var table = document.getElementById('bridge-result-table1');
     var row = table.insertRow(-1);

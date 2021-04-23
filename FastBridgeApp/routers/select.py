@@ -48,7 +48,9 @@ def filter_helper(row_filters, POS):
 @router.get("/{language}/result/{sourcetexts}/{starts}-{ends}/{running_list}/")
 async def simple_result(request : Request, starts : str, ends : str, sourcetexts : str, language : str, running_list: str):
     context = {"request": request}
+    print(f' at line 51 in selct.py starts section value: {starts}  and end section value {ends}')
     triple = DefinitionTools.make_quads_or_trips(sourcetexts, starts, ends)
+    print(triple)
     print("made trips")
     if running_list == "running":
         running_list = True
@@ -72,7 +74,9 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
         print("loaded the book")
         titles += (book.get_words(start, end))
         del book #book SHOULD be out of scope when the loop ends, but is NOT. This causes Python to hold on to the memory pool for all the lists and dictionaries in the book object. Therefore, we need to delete it ourselves
+        print(f'book : {book}')
     try:
+        print("inside try")
         print(book)
     except Exception as e:
         print("GOOD! IT IS GONE")
@@ -135,6 +139,7 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
         running_list = False
     local_def = False
     local_lem = False
+    print(f' at line 138 in selct.py starts section value: {starts}  and end section value {ends}')
     source = DefinitionTools.make_quads_or_trips(sourcetexts, starts, ends)
     other = DefinitionTools.make_quads_or_trips(othertexts, otherstarts, otherends)
     other_titles = set()

@@ -67,6 +67,7 @@ function show_full_list(id) {
 //from old bridge. Somethings weren't broken
 function printData()
 {
+   console.log('inside printData')
    var divToPrint=document.getElementById("export_wrapper");
    newWin= window.open("");
    newWin.document.write(divToPrint.outerHTML);
@@ -77,6 +78,7 @@ function printData()
 
 // Quick and simple export target #table_id into a csv
 function download_table_as_csv() {
+  console.log('inside download_table_as_csv')
     // Select rows from table_id
     var rows = document.querySelectorAll('div#export_wrapper tr');
     // Construct csv
