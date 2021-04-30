@@ -74,7 +74,8 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
         print("loaded the book")
         titles += (book.get_words(start, end))
         del book #book SHOULD be out of scope when the loop ends, but is NOT. This causes Python to hold on to the memory pool for all the lists and dictionaries in the book object. Therefore, we need to delete it ourselves
-        print(f'book : {book}')
+        # print(f'book : {book}')
+        print("made changes on line 77 select.py")
     try:
         print("inside try")
         print(book)

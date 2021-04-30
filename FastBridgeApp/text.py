@@ -53,7 +53,10 @@ class Text(object):
                     range_end) + ".1"]
                 # this should make a search for  1.1 - 1 become a search for 1.1 - 2.1(previous section). If the section has a letter (ie, 2b), this will convert it to 2c. If 2c does not exist, it will fail and go below
             except Exception as e:
-                to_increment = range_end[:-1]  # remove the letter 2b -> 2.1
+                if(len(range_end) > 1):
+                    to_increment = range_end[:-1] 
+                to_increment = range_end 
+                # to_increment = range_end[:-1]  # remove the letter 2b -> 2.1
                 internal_range_end = self.section_linkedlist[next_section(to_increment) + ".1"]
 
         elif range_end.count(".") == 0 and self.subsections == 3:
@@ -63,8 +66,13 @@ class Text(object):
                 internal_range_end = self.section_linkedlist[next_section(
                     range_end) + ".1.1"]
             except Exception as e:
-                to_increment = range_end[:-1]  # remove the letter
-                self.section_linkedlist[next_section(to_increment) + ".1.1"]
+                 # remove the letter
+                # print(type(range_end))
+                if(len(range_end) > 1):
+                    to_increment = range_end[:-1] 
+                to_increment = range_end 
+                # print(f'at line 67:  {to_increment}')
+                internal_range_end = self.section_linkedlist["1." + next_section(to_increment) + ".1"]
 
         elif range_end.count(".") == 1 and self.subsections == 2:
             print("end of depth 2, as expected")
@@ -75,11 +83,12 @@ class Text(object):
             # for things with three levels, and two were given
             range_end = range_end.split(".")
             try:
-                internal_range_end = self.section_linkedlist[".".join(
-                    range_end[0], next_section(range_end[1]), ".1")]
+                internal_range_end = self.section_linkedlist[ ".".join( (
+                    range_end[0], next_section(range_end[1]), "1") )]
             except Exception as e:
-                internal_range_end = self.section_linkedlist[".".join(
-                    range_end[0], next_section(range_end[1][:-1]), ".1")]
+                internal_range_end = self.section_linkedlist[".".join((
+                    range_end[0], next_section(range_end[1][:-1]), "1"))]
+                print(".".join((range_end[0], next_section(range_end[1][:-1]), "1")))
         elif range_end.count(".") == 2 and self.subsections == 3:
             internal_range_end = range_end
         # start ends up being the end of the previous section + 1
@@ -87,7 +96,7 @@ class Text(object):
         #print(internal_range_end, " ending place")
 
         print(self.sections[self.section_linkedlist[internal_range_start]] +1)
-        print(self.sections[internal_range_end] +1)
+        print(self.sections[internal_range_end] + 1)
         print((self.sections[self.section_linkedlist[internal_range_start]] + 1, (self.sections[internal_range_end]+1)))
         # should be the end list index
         print(type(self.sections))
@@ -104,7 +113,7 @@ class Text(object):
         # really: Text.text_list(), a method to return the text list if present and error other wise
         start, end = self.get_section(user_start, user_end)
         #print(start, end)
-        tmp = self.words
+        tmp = self.words  #('ΑΓΑΘΟΣ', 0, 'αγαθος', '', '', '171', 1) list of sixtuple  
 
         if end == -1:
             end = len(tmp)
@@ -122,10 +131,11 @@ def next_section(section):
     # try:
     if(length == 1):
         target = str(int(working_section[0]) + 1)
+        print(target)
         return target
     else:
         if(length == 2):
-            target = f"{working_section[0][:-1]}{chr(ord(working_section[0][-1]) + 1)}"
+            target = str(f"{working_section[0][:-1]}{chr(ord(working_section[0][-1]) + 1)}")
             return target
     # except ValueError: #invalid conversion
     #     # if(len(working_section) == 1)

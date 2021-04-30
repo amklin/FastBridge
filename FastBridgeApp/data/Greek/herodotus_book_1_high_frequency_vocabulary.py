@@ -7,3 +7,6 @@ title = "Herodotus, Book 1 (High Frequency Vocabulary)"
 section_level =  1
 language = "Greek"
 book = text.Text(title, section_words, the_text, section_list, section_level, language, False, False)
+
+
+# def __init__(name: str, sections: dict, words: list, section_linkedlist: dict, subsections: int, language: str, local_def: bool = False, local_lem: bool = False):
