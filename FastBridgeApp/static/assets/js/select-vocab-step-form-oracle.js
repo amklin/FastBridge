@@ -190,7 +190,7 @@ $('#oracle-modal-form2-save').click(function(){
       alert("please enter a valid text");
       return false;
     }
-
+//bridge-modal-form2-select2-hidden-field1: NEED TO WORK HERE
     var sectionFrom = $('#oracle-modal-form2-select2-hidden-field1').val();
     var sectionTo =$('#oracle-modal-form2-select2-hidden-field2').val();
     console.log(sectionFrom, sectionTo)

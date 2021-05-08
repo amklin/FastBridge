@@ -29,6 +29,7 @@ def get_lang_data(words : list, dictionary: str, local_defs_bool : bool = False,
     lang = importlib.import_module(dictionary) #import the appropriate dictionary.
     POS =  lang.POS_list
     columnheaders = lang.columnheaders
+    print()
     row_filters =  lang.row_filters
     lang = lang.correct_dict
     final_row_filters = set()

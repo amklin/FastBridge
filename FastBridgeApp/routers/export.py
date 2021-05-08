@@ -97,6 +97,9 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
         del new_titles
     titles_no_dups = sorted(titles_no_dups, key=lambda x: x[1])
     titles = sorted(titles, key=lambda x: x[1])
+    # print(titles)
+    # print("at line 101")
+    # print(titles_no_dups)
 
     words, POS_list, columnheaders, row_filters, global_filters = (DefinitionTools.get_lang_data(titles, language, local_def, local_lem))
 
@@ -109,7 +112,7 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     print("at line 109 in export.py")
     print(columnheaders)
     columnheaders.append("Count_in_Selection")
-    columnheaders.append("Order_of_Appearance")
+    columnheaders.append("Location") #location ID
     columnheaders.append("Source_Text")
 
     #TODO AJ revisit this, these values can be found in the frequency_dict, to add back later
@@ -135,18 +138,23 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
             word= word[0]._asdict()   
             row = dict(word)
             data.append(row)
-                    
+
+    print(data[0])  
+    print(data[1])              
     df = pd.DataFrame(data)
+    print(df.columns)
     display_column_list = []
     # include only columns that were selected by the user
     #final deplay list that will help render the correct csv
     lenDisplay = len(display)
     for i in range(len(display)):
+        # if(display[i] == "Appearance"):
+        #        display_column_list.append(display[i])
         if (display[i] in columnheaders):
             display_column_list.append(display[i])
     print("at line 147 in export.py")
     print(display_column_list)
-
+ 
     df = df[display_column_list] 
 
     # in memory variation, not sure how to set filename
@@ -231,7 +239,7 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
     print("at line 231 in export.py")
     print(columnheaders)
     columnheaders.append("Count_in_Selection")
-    columnheaders.append("Order_of_Appearance")
+    columnheaders.append("Location") #Location
     columnheaders.append("Source_Text")
     print("at line 236 in export.py")
     print(columnheaders)
