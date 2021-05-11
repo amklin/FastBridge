@@ -43,7 +43,7 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     data = data['data']
 
     print("at line 45")
-    # Get columns to show, remove those marked 'hide'
+    # Get columns to show, remove those marked 'show'
     display =[key for key in data.keys() if data[key] == 'hide'] 
     print("at line 46")
     print(display)
@@ -78,6 +78,8 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
 
 
     # what does this section do? 
+    # print(f"at line 81 :: /n {titles}  ")
+    
     frequency_dict = {}
     if True:
         dups = set()
@@ -88,8 +90,10 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
                 dups.add((title[0]))
                 new_titles.append(title)
                 frequency_dict[title[0]] = 1
+                print(title[0])
             else:
                 frequency_dict[title[0]] += 1
+                print(title[0])
 
 
         titles_no_dups = new_titles

@@ -116,6 +116,7 @@ var first_visible_row = document.getElementById('main_table').rows[0]
 
 function get_first_visible_row() {
   var rows = document.getElementById('main_table').rows;
+  console.log(rows)
   var j = 0;
   while (isHidden(rows[j])){
     j++
