@@ -11,7 +11,7 @@ function current_selections() {
        "Number",
        "Preposition",
        "Pronoun",
-       "Verb",
+       "Verb", 
        "CONJUNCTION_Verb_1",
        "CONJUNCTION_Verb_2",
        "CONJUNCTION_Verb_3",

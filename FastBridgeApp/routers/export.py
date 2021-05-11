@@ -123,7 +123,8 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     data = []    
     if 'running' in display:
         for word in words:   
-            word= word[0]._asdict()  
+            word= word[0]._asdict() 
+            print(word) 
             #TODO add logic to drop from results without match to current filters 
             row = dict(word)
             data.append(row)
@@ -132,7 +133,8 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
         
     else: 
         for word in words_no_dups:
-            word= word[0]._asdict()   
+            word= word[0]._asdict() 
+            print(word)   
             row = dict(word)
             data.append(row)
                     
