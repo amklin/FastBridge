@@ -97,6 +97,7 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
         del new_titles
     titles_no_dups = sorted(titles_no_dups, key=lambda x: x[1])
     titles = sorted(titles, key=lambda x: x[1])
+    # print(frequency_dict)
 
     words, POS_list, columnheaders, row_filters, global_filters = (DefinitionTools.get_lang_data(titles, language, local_def, local_lem))
 
@@ -109,8 +110,10 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     print("at line 109 in export.py")
     print(columnheaders)
     columnheaders.append("Count_in_Selection")
-    columnheaders.append("Order_of_Appearance")
+    columnheaders.append("Location") #order_of_apperance
     columnheaders.append("Source_Text")
+    print("at line 114 in export.py")
+    print(columnheaders)
 
     #TODO AJ revisit this, these values can be found in the frequency_dict, to add back later
     #now removing to get to working exporter
@@ -141,12 +144,22 @@ async def simple_result(request : Request, starts : str, ends : str, sourcetexts
     # include only columns that were selected by the user
     #final deplay list that will help render the correct csv
     lenDisplay = len(display)
-    for i in range(len(display)):
+    print(display)
+    for i in range(lenDisplay):
+        print(f"display[i]:  {display[i]} ::::  columnheaders  {display[i] in columnheaders}")
         if (display[i] in columnheaders):
             display_column_list.append(display[i])
+            if(display[i] == "Location"):
+                display[i] = "Appearance"
+                display_column_list.append(display[i])
+            if(display[i] == "Count"):
+                display[i] = "Appearance"
+                display_column_list.append(display[i])
+
     print("at line 147 in export.py")
     print(display_column_list)
-
+    print("at line 153")
+    print(df.columns)
     df = df[display_column_list] 
 
     # in memory variation, not sure how to set filename
@@ -231,7 +244,7 @@ async def result(request : Request, starts : str, ends : str, sourcetexts : str,
     print("at line 231 in export.py")
     print(columnheaders)
     columnheaders.append("Count_in_Selection")
-    columnheaders.append("Order_of_Appearance")
+    columnheaders.append("Location")  #order_of_appearance
     columnheaders.append("Source_Text")
     print("at line 236 in export.py")
     print(columnheaders)
