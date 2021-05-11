@@ -35,7 +35,7 @@ def get_lang_data(words : list, dictionary: str, local_defs_bool : bool = False,
     word_list = deque() #has more effieceint appends, and is just as good to iterate over later
     #if local_defs: #we want this to be protected because it will take an extra round of iterating over all the words in the INTIAL selction.
     #local definitions are hard, because the same word could show up in the section multiple times, so we can't use a dictionary, because then we would have multiple copies of the same key.
-    Word = namedtuple("Word", columnheaders + row_filters + ["Appearance", "Total_Count_in_Text", "Source_Text"])
+    Word = namedtuple("Word", columnheaders + row_filters + ["Appearance", "Total_Count_in_Text", "Count_in_Selection", "Source_Text"]) #added Count_in_Selection
     apperances = [word[5].replace('_', ".") for word in words]
     if local_defs_bool and local_lem:
         local_defs =[word[3] for word in words]
