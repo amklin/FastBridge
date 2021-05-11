@@ -33,7 +33,7 @@ function current_selections() {
        "FORCELLINI_LINK",
        "Total_Count_in_Text",
        "Count_in_Selection",
-       "Location",
+       "Order_of_Appearance",
        "Source_Text"
     ]
     

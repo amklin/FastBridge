@@ -29,7 +29,7 @@ function add_text(text_name, dropdown_id, depth){
   else if (depth == 3){
     new_placeholder = "1.1.1"
   }
-  document.getElementById("startIndex").innerText = new_placeholder;
+
   document.getElementById('bridge-modal-form1-select2-hidden-field1').placeholder = new_placeholder
   document.getElementById('bridge-modal-form1-select2-hidden-field2').placeholder = new_placeholder
   document.getElementById('bridge-modal-form2-select2-hidden-field1').placeholder = new_placeholder
@@ -42,13 +42,10 @@ function add_text(text_name, dropdown_id, depth){
   id =  document.getElementById(dropdown_id).previousElementSibling.id
   display = document.getElementById(id);
   display.innerText = text_name
-  console.log(text_name)
-  console.log(text_name.sections)
 }
 function filterFunction(input_id, dropdown_id) {
   var input, filter, ul, li, a, i;
   input = document.getElementById(input_id);
-  console.log(input)
   filter = input.value.toUpperCase();
   div = document.getElementById(dropdown_id);
   a = div.getElementsByTagName("a");
@@ -117,7 +114,6 @@ function post(path, parameters) {
                 field.attr("type", "hidden");
                 field.attr("name", key+'[]');
                 field.attr("value", subvalue);
-                console.log(subvalue)
                 form.append(field);
             });
         } else {
@@ -274,7 +270,6 @@ $('#bridge-modal-form1-save').click(function(){
 
     console.log(sectionFrom)
     console.log(sectionTo)
-    // console.log(sectionTo.length())
     // show the selection in a table
     var table = document.getElementById('bridge-result-table1');
     var row = table.insertRow(-1);
